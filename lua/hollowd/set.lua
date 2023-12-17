@@ -19,3 +19,5 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "79"
 
 vim.g.mapleader = " "
+
+-- vim.termguicolors = true
