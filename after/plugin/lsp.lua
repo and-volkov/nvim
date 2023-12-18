@@ -16,16 +16,7 @@ local on_attach = lsp_zero.on_attach(function(client, bufnr)
 end)
 
 require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {'pyright', 'gopls', 'lua_ls', 'html', 'ruff_lsp'},
-  handlers = {
-    lsp_zero.default_setup,
-    lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  }
-})
+require('mason-lspconfig').setup({})
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -45,27 +36,102 @@ cmp.setup({
   }),
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local servers = {
+    -- clangd = {},
+    gopls = {},
+    -- pylsp = { filetypes = { 'python', 'py' } },
+    pyright = { filetypes = { 'python', 'py' } },
+    -- ruff_lsp = { filetypes = { 'python', 'py' } },
+    -- rust_analyzer = {},
+    -- tsserver = {},
+    html = { filetypes = { 'html', 'twig', 'hbs'} },
 
-local lspconfig = require("lspconfig")
+  lua_ls = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+      -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+      -- diagnostics = { disable = { 'missing-fields' } },
+    },
+  },
+}
 
-lspconfig.pyright.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {"python"}
-})
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lspconfig.ruff_lsp.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {"python"}
+-- Ensure the servers above are installed
+local mason_lspconfig = require('mason-lspconfig')
+
+mason_lspconfig.setup {
+  ensure_installed = vim.tbl_keys(servers),
+}
+
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    }
+  end,
+}
+
+require('lspconfig').pyright.setup({
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "workspace",
+        typeCheckingMode = "basic",
+        -- stubPath = vim.fn.stdpath('data') .. '/stubs',
+        -- stubPath = "/home/mason/.local/share/nvim/stubs",
+      },
+    },
+  },
 })
 
 local null_ls = require('null-ls')
 
 null_ls.setup({
     sources = {
-        null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.diagnostics.ruff,
-    },
+        null_ls.builtins.formatting.ruff,
+        -- null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.diagnostics.flake8,
+    }
 })
+
+-- 
+-- require('lspconfig')["pylsp"].setup({
+--     settings = {
+--         pylsp = {
+--             plugins = {
+--                 ruff = {
+--                     -- formatter + Linter + isort
+--                     enabled = true,
+--                     extendSelect = { "ALL" },
+--                     format = { "ALL" },
+--                 },
+--                 -- formatter options
+--                 black = { enabled = true},
+--                 autopep8 = { enabled = false },
+--                 yapf = { enabled = false },
+--                 -- linter options
+--                 pylint = { enabled = false, executable = "pylint" },
+--                 pyflakes = { enabled = false },
+--                 pycodestyle = { enabled = false },
+--                 -- type checker
+--                 pylsp_mypy = { enabled = true, args = { "--check-untyped-defs" }},
+--                 mypy = { enabled = true, args = { "--check-untyped-defs" }},
+--                 -- auto-completion options
+--                 jedi_completion = { fuzzy = true },
+--                 -- import sorting
+--                 pyls_isort = { enabled = false },
+--             },
+--         },
+--     },
+-- })
