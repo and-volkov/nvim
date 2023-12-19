@@ -20,4 +20,6 @@ vim.opt.colorcolumn = "79"
 
 vim.g.mapleader = " "
 
+vim.opt.wrap = true -- wrap lines
+vim.opt.linebreak = true -- wrap lines at convenient points
 -- vim.termguicolors = true

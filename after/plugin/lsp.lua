@@ -98,12 +98,46 @@ local null_ls = require('null-ls')
 
 null_ls.setup({
     sources = {
-        null_ls.builtins.formatting.ruff,
-        -- null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.diagnostics.flake8,
-    }
-})
+        null_ls.builtins.diagnostics.ruff.with({
+            extra_args = {
+                "select", "E, F, Q",
+                "ignore", "E501",
+                "exclude", ".venv, .git, .mypy_cache, .pytest_cache, .tox, build, dist",
+                "line-length", "79",
+                "dummy-variable-rgx", "^_+$",
+            },
+        }),
+        null_ls.builtins.diagnostics.mypy.with({
+            extra_args = {
+                "--ignore-missing-imports",
+                "--follow-imports", "silent",
+            }
+        }),
+        --         null_ls.builtins.formatting.black.with({
+            --             extra_args = {
+                --                 "--line-length", "79",
+                --                 "--target-version", "py310",
+                --                 "--skip-string-normalization",
+                --             }
+                --         }),
+                null_ls.builtins.diagnostics.flake8,
+            },
+            on_attach = function (client, bufnr)
+                if client.supports_method('textDocument/formatting') then
+                    vim.api.nvim_clear_autocmds({
+                        group = augroup,
+                        buffer = bufnr,
+                    })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.format({ bufnr = bufnr })
+                        end,
+                    })
+                end
+            end
+        })
 
 -- 
 -- require('lspconfig')["pylsp"].setup({
