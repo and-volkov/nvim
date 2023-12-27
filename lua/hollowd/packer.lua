@@ -49,4 +49,6 @@ return require("packer").startup(function(use)
 	use("stevearc/conform.nvim")
 
 	use("mfussenegger/nvim-lint")
+
+	use("folke/tokyonight.nvim")
 end)
