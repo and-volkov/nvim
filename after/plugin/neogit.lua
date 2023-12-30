@@ -25,3 +25,5 @@ neo.setup({
 		status = {},
 	},
 })
+
+vim.api.nvim_set_keymap("n", "<leader>Gg", ":Neogit<CR>", { noremap = true, silent = true })
