@@ -25,8 +25,6 @@ return require("packer").startup(function(use)
 
 	use("mbbill/undotree")
 
-	use("tpope/vim-fugitive")
-
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
@@ -51,4 +49,17 @@ return require("packer").startup(function(use)
 	use("mfussenegger/nvim-lint")
 
 	use("folke/tokyonight.nvim")
+
+	use({
+		"NeogitOrg/neogit",
+		requires = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional
+		},
+		config = true,
+	})
 end)
