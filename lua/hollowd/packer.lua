@@ -13,14 +13,12 @@ return require("packer").startup(function(use)
 
 	use({ "rose-pine/neovim", as = "rose-pine" })
 
-	use("folke/tokyonight.nvim")
-
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 
 	use({
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = { "nvim-lua/plenary.nvim" },
 	})
 
 	use("mbbill/undotree")
@@ -60,6 +58,11 @@ return require("packer").startup(function(use)
 			"nvim-telescope/telescope.nvim", -- optional
 			"ibhagwan/fzf-lua", -- optional
 		},
-		config = true,
+		-- config = true,
+	})
+
+	use({
+		"nvim-lualine/lualine.nvim",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
 end)

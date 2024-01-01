@@ -89,6 +89,16 @@ _G.packer_plugins = {
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/conform.nvim",
     url = "https://github.com/stevearc/conform.nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
+  ["fzf-lua"] = {
+    loaded = true,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/fzf-lua",
+    url = "https://github.com/ibhagwan/fzf-lua"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -99,6 +109,11 @@ _G.packer_plugins = {
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
   },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -108,6 +123,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  neogit = {
+    loaded = true,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/NeogitOrg/neogit"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -128,6 +148,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -158,11 +184,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
-  },
-  ["vim-fugitive"] = {
-    loaded = true,
-    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-tmux-navigator"] = {
     loaded = true,
