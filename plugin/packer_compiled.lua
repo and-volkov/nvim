@@ -191,6 +191,11 @@ _G.packer_plugins = {
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/Users/and_volkov/.local/share/nvim/site/pack/packer/start/undotree",
