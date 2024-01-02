@@ -72,4 +72,10 @@ return require("packer").startup(function(use)
 			require("nvim-autopairs").setup({})
 		end,
 	})
+
+	use({ "laytan/cloak.nvim" })
+
+	use({ "folke/zen-mode.nvim" })
+
+	use({ "folke/which-key.nvim" })
 end)
